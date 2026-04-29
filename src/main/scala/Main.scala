@@ -4,7 +4,21 @@
 
 object Main {
   def main(args: Array[String]): Unit = {
+    val entities: List[NamedEntity] = List(
+      new Person("Alan Turing"),
+      new University("MIT"),
+      new ProgrammingLanguage("Scala"),
+      new Place("San Francisco")
+    )
+    entities.foreach(e => println(e.describe))
 
+    val dict = Dictionary.loadAll()
+    println(s"Total de entidades: ${dict.size}")
+    dict.filter(_.entityType == "Person").foreach(p => println(p.describe))
+
+  
+
+/*
     // ------------------------------------------------------------------
     // Paso 1: Cargar diccionarios
     // ------------------------------------------------------------------
@@ -40,6 +54,6 @@ object Main {
     //   1. Recolectar TODAS las entidades detectadas en todos los posts
     //   2. Contar por tipo
     //   3. Mostrar el resumen
-
+*/
   }
 }
