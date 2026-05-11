@@ -4,29 +4,16 @@
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val entities: List[NamedEntity] = List(
-      new Person("Alan Turing"),
-      new University("MIT"),
-      new ProgrammingLanguage("Scala"),
-      new Place("San Francisco")
-    )
-    entities.foreach(e => println(e.describe))
-
-    val dict = Dictionary.loadAll()
-    println(s"Total de entidades: ${dict.size}")
-    dict.filter(_.entityType == "Person").foreach(p => println(p.describe))
-
-  
-
-/*
+    
     // ------------------------------------------------------------------
     // Paso 1: Cargar diccionarios
     // ------------------------------------------------------------------
     // TODO (Ejercicio 2)
-    val dictionary: List[NamedEntity] = ???
+    val dictionary: List[NamedEntity] = Dictionary.loadAll()
 
     println(s"Diccionario cargado: ${dictionary.size} entidades.\n")
 
+/*
     // ------------------------------------------------------------------
     // Paso 2: Descargar posts
     // ------------------------------------------------------------------
