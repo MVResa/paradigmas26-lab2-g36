@@ -35,7 +35,7 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    ???
+    dictionary.filter(entity => s"(?i)\\b${java.util.regex.Pattern.quote(entity.text)}\\b".r.findFirstIn(text).isDefined)
   }
 
   /**

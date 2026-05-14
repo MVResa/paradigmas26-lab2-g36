@@ -4,15 +4,16 @@
 
 object Main {
   def main(args: Array[String]): Unit = {
-
+    
     // ------------------------------------------------------------------
     // Paso 1: Cargar diccionarios
     // ------------------------------------------------------------------
     // TODO (Ejercicio 2)
-    val dictionary: List[NamedEntity] = ???
+    val dictionary: List[NamedEntity] = Dictionary.loadAll()
 
     println(s"Diccionario cargado: ${dictionary.size} entidades.\n")
 
+/*
     // ------------------------------------------------------------------
     // Paso 2: Descargar posts
     // ------------------------------------------------------------------
@@ -40,6 +41,6 @@ object Main {
     //   1. Recolectar TODAS las entidades detectadas en todos los posts
     //   2. Contar por tipo
     //   3. Mostrar el resumen
-
+*/
   }
 }
