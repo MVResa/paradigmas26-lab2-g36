@@ -37,18 +37,22 @@ object Dictionary {
    *   Para crear la clase correcta según el tipo se puede usar match:
    *
    */
-  def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
+  def loadFromFile(filePath: String, entityType: String): Option[List[NamedEntity]] = {
     val filename = filePath
     val source = Source.fromFile(filename)
 
-    try{
-      source.getLines().map(line => entityType match {
-        case "Person" => new Person(line)
-        case "University" => new University(line)
-        case "ProgrammingLanguage" => new ProgrammingLanguage(line)
-        case "Organization" => new Organization(line)
-        case "Place" => new Place(line)
-      }).toList
+    try {
+      Some(source.getLines().map ( line => entityType match {
+          case "Person" => new Person(line)
+          case "Organization" => new Organization(line)
+          case "University" => new University(line)
+          case "Place" => new Place(line)
+          case "Technology" => new Technology(line)
+          case "ProgrammingLanguage" => new ProgrammingLanguage(line)
+        }
+      ).toList)
+    } catch {
+      case _: Exception => None
     } finally {
       source.close()
     }
@@ -63,11 +67,11 @@ object Dictionary {
    *
    */
   def loadAll(): List[NamedEntity] = {
-    val people = loadFromFile("data/people.txt", "Person")
-    val univerities = loadFromFile("data/universities.txt", "University")
-    val lenguages = loadFromFile("data/languages.txt", "ProgrammingLanguage")
-    val organizations = loadFromFile("data/organizations.txt", "Organization")
-    val places = loadFromFile("data/places.txt", "Place")
+    val people = loadFromFile("data/people.txt", "Person").getOrElse(List())
+    val univerities = loadFromFile("data/universities.txt", "University").getOrElse(List())
+    val lenguages = loadFromFile("data/languages.txt", "ProgrammingLanguage").getOrElse(List())
+    val organizations = loadFromFile("data/organizations.txt", "Organization").getOrElse(List())
+    val places = loadFromFile("data/places.txt", "Place").getOrElse(List())
     people ++ univerities ++ lenguages ++ organizations ++ places
   }
 }
