@@ -13,20 +13,7 @@ object Main {
 
     println(s"Diccionario cargado: ${dictionary.size} entidades.\n")
 
-    // ejercicio 3 prueba
 
-    val text = "Scala fue creado en EPFL por Martin Odersky"
-
-    val found = Analyzer.detectEntities(text, dictionary)
-
-    found.foreach(e => println(e.describe))
-
-    // ejercicio 5 prueba 
-
-    val mapedCount = Analyzer.countByType(found)
-    val toPrint = Formatters.formatEntityStats(mapedCount)
-    println(s"${toPrint}")
-/*
     // ------------------------------------------------------------------
     // Paso 2: Descargar posts
     // ------------------------------------------------------------------
@@ -47,7 +34,12 @@ object Main {
     //     1. Detectar entidades
     //     2. Formatear y mostrar el resultado
     
-
+    allPosts.foreach { case (url,titles) =>
+      titles.distinct.foreach { title =>
+        val entitiesFound = Analyzer.detectEntities(title,dictionary)
+        println(Formatters.formatNERResult(title,entitiesFound))
+      }
+    }
     // ------------------------------------------------------------------
     // Paso 4: Estadísticas globales
     // ------------------------------------------------------------------
@@ -55,6 +47,12 @@ object Main {
     //   1. Recolectar TODAS las entidades detectadas en todos los posts
     //   2. Contar por tipo
     //   3. Mostrar el resumen
-*/
+    val allEntities = allPosts.flatMap { case (url,title) =>
+      title.distinct.flatMap { title =>
+        Analyzer.detectEntities(title,dictionary)
+      }
+    }
+    val counts = Analyzer.countByType(allEntities)
+    println(Formatters.formatEntityStats(counts))
   }
 }
